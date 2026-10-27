@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/intro"
+            android:paddingBottom="16dp" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_base_url" />
+        <EditText
+            android:id="@+id/baseUrl"
+            style="@style/Field"
+            android:inputType="textUri"
+            android:hint="https://api.openai.com/v1" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_api_key" />
+        <EditText
+            android:id="@+id/apiKey"
+            style="@style/Field"
+            android:inputType="textPassword"
+            android:hint="sk-…" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_anthropic_key" />
+        <EditText
+            android:id="@+id/anthropicKey"
+            style="@style/Field"
+            android:inputType="textPassword"
+            android:hint="sk-ant-… (only for Claude models)" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_model" />
+        <Spinner
+            android:id="@+id/modelSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+        <EditText
+            android:id="@+id/customModel"
+            style="@style/Field"
+            android:inputType="text"
+            android:visibility="gone"
+            android:hint="exact model id, e.g. gpt-6-astra" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_transcribe_model" />
+        <EditText
+            android:id="@+id/transcribeModel"
+            style="@style/Field"
+            android:inputType="text"
+            android:hint="whisper-1" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/ttsOpenAi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_tts_openai" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_tts_model" />
+        <EditText
+            android:id="@+id/ttsModel"
+            style="@style/Field"
+            android:inputType="text"
+            android:hint="gpt-4o-mini-tts" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_tts_voice" />
+        <EditText
+            android:id="@+id/ttsVoice"
+            style="@style/Field"
+            android:inputType="text"
+            android:hint="alloy" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_system_prompt" />
+        <EditText
+            android:id="@+id/systemPrompt"
+            style="@style/Field"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:gravity="top" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/action_save" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView style="@style/FieldLabel" android:text="@string/label_test_message" />
+        <EditText
+            android:id="@+id/testMessage"
+            style="@style/Field"
+            android:inputType="textMultiLine"
+            android:hint="What's a good podcast for a long drive?" />
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/action_test" />
+
+        <TextView
+            android:id="@+id/testResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textIsSelectable="true"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+    </LinearLayout>
+</ScrollView>

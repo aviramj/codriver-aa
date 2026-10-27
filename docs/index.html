@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoDriver AI — Privacy Policy</title>
+  <meta name="description" content="Privacy policy for the CoDriver AI Android Auto voice assistant.">
+  <style>
+    :root {
+      --bg:#ffffff; --fg:#1a1a2e; --muted:#5a5a72; --accent:#0b5fff;
+      --card:#f5f7fb; --border:#e3e7ef;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0e1116; --fg:#e6e9ef; --muted:#9aa3b2; --accent:#6ea8ff; --card:#161b22; --border:#232a33; }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin:0; background:var(--bg); color:var(--fg);
+      font:16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .wrap { max-width:760px; margin:0 auto; padding:40px 20px 80px; }
+    header { border-bottom:1px solid var(--border); padding-bottom:20px; margin-bottom:28px; }
+    .badge { display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-weight:600; letter-spacing:.02em; }
+    h1 { font-size:1.9rem; margin:14px 0 6px; }
+    .updated { color:var(--muted); font-size:.92rem; }
+    h2 { font-size:1.2rem; margin:34px 0 8px; }
+    a { color:var(--accent); }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-top:16px; }
+    footer { margin-top:48px; border-top:1px solid var(--border); padding-top:18px; color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">🎙️ CoDriver AI</span>
+      <h1>Privacy Policy</h1>
+      <div class="updated">Last updated: 27 October 2026</div>
+    </header>
+
+    <p>CoDriver AI is a personal, hands-free voice assistant for Android Auto. This
+       policy explains what the app does with your data.</p>
+
+    <h2>Who runs this app</h2>
+    <p>CoDriver AI is published for personal and testing use by the app owner. There
+       is no backend server operated by the app.</p>
+
+    <h2>What the app accesses</h2>
+    <ul>
+      <li><strong>Microphone.</strong> When you tap &ldquo;Speak,&rdquo; the app records your
+          voice so your request can be transcribed. Recording happens only while you
+          are actively using that feature.</li>
+      <li><strong>Your configuration.</strong> Your API key, chosen model/endpoint, and
+          system prompt are stored <strong>only on your device</strong> (encrypted where
+          supported). They are never sent anywhere except, as an API key, to the AI
+          provider you configure.</li>
+    </ul>
+
+    <h2>What is sent off the device, and to whom</h2>
+    <p>To answer you, the app sends data to the <strong>AI provider you configure</strong>
+       (by default, OpenAI, via the base URL in Settings):</p>
+    <ul>
+      <li>Your recorded audio is sent for <strong>speech-to-text transcription</strong>.</li>
+      <li>The transcribed text and recent conversation turns are sent to the
+          <strong>chat model</strong> to generate a reply.</li>
+      <li>If you enable the OpenAI voice, the reply text is sent to the provider&rsquo;s
+          <strong>text-to-speech</strong> endpoint to produce audio.</li>
+    </ul>
+    <p>Your use of that provider is governed by <strong>that provider&rsquo;s own privacy
+       policy and terms</strong> (for example, OpenAI). The app&rsquo;s owner does not
+       separately collect, store, or share this data.</p>
+
+    <h2>Data retention</h2>
+    <p>The app has no server of its own and does not persist your conversations
+       off-device. The current conversation is held in memory to support follow-up
+       questions and is cleared when you tap &ldquo;New chat&rdquo; or close the app. Any
+       retention by your chosen AI provider is governed by that provider.</p>
+
+    <h2>Children</h2>
+    <p>This app is not directed to children.</p>
+
+    <h2>Contact</h2>
+    <div class="card">Questions about this policy? Email
+      <a href="mailto:aviram@jenik.com">aviram@jenik.com</a>.</div>
+
+    <footer>CoDriver AI &middot; Privacy Policy &middot; Published via GitHub Pages for use as
+      the app&rsquo;s privacy-policy URL in Google Play.</footer>
+  </div>
+</body>
+</html>

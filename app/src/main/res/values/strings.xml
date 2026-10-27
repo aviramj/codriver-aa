@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CoDriver AI</string>
+
+    <string name="label_base_url">API base URL (OpenAI-compatible)</string>
+    <string name="label_api_key">OpenAI API key (voice input + OpenAI models)</string>
+    <string name="label_anthropic_key">Anthropic API key (for Claude models)</string>
+    <string name="label_model">Chat model</string>
+    <string name="label_transcribe_model">Transcription model (OpenAI Whisper)</string>
+    <string name="label_system_prompt">System prompt</string>
+    <string name="label_tts_openai">Use OpenAI voice (cloud TTS)</string>
+    <string name="label_tts_model">OpenAI TTS model</string>
+    <string name="label_tts_voice">OpenAI TTS voice</string>
+    <string name="label_test_message">Test message</string>
+    <string name="action_save">Save</string>
+    <string name="action_test">Send test &amp; speak</string>
+
+    <string name="intro">Configure your AI, then open Android Auto and tap “CoDriver AI”. Tap Speak, ask a question, and it reads the answer back. Voice input always uses your OpenAI key (Whisper); chat uses OpenAI or Claude depending on the model you pick. Keys are stored only on this phone.</string>
+</resources>
