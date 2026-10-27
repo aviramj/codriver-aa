@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:512px;height:512px;overflow:hidden}
+.wrap{width:512px;height:512px;position:relative;
+ background:radial-gradient(130% 130% at 30% 18%,#3E86FF 0%,#1566FF 38%,#0A3AB0 72%,#072A86 100%)}
+.ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%}
+.r1{width:300px;height:300px;border:10px solid rgba(255,255,255,.10)}
+.r2{width:412px;height:412px;border:10px solid rgba(255,255,255,.055)}
+svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+</style></head><body>
+<div class="wrap">
+ <div class="ring r2"></div><div class="ring r1"></div>
+ <svg width="300" height="300" viewBox="0 0 100 100">
+  <rect x="40" y="16" width="20" height="46" rx="10" fill="#fff"/>
+  <path d="M27 50 a23 23 0 0 0 46 0" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/>
+  <line x1="50" y1="73" x2="50" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/>
+  <line x1="35" y1="86" x2="65" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/>
+ </svg>
+</div></body></html>

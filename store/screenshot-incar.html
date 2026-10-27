@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:1080px;height:1920px;overflow:hidden;
+ font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif}
+*{box-sizing:border-box}
+.wrap{width:1080px;height:1920px;color:#fff;display:flex;flex-direction:column;padding:72px 60px 80px;
+ background:radial-gradient(120% 90% at 50% 0%,#12255e 0%,#0b1430 55%,#070d22 100%)}
+.top{display:flex;align-items:center;gap:22px;color:#bcd0ff;font-size:40px;font-weight:700}
+.top svg{width:56px;height:56px}
+.head{margin-top:66px;font-size:64px;font-weight:800;line-height:1.12}
+.head span{color:#5fa0ff}
+.conv{margin-top:64px;display:flex;flex-direction:column;gap:32px}
+.bubble{max-width:86%;padding:30px 34px;border-radius:30px;font-size:36px;line-height:1.42}
+.you{align-self:flex-end;background:#1f6bff;border-bottom-right-radius:8px}
+.ai{align-self:flex-start;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+ color:#eaf0ff;border-bottom-left-radius:8px}
+.ai b{color:#8fb7ff}
+.wave{margin:66px auto 0;display:flex;align-items:center;gap:13px;height:96px}
+.wave i{width:13px;border-radius:7px;background:linear-gradient(#7db0ff,#1f6bff)}
+.spacer{flex:1}
+.mic-btn{margin:0 auto;width:236px;height:236px;border-radius:50%;
+ background:linear-gradient(160deg,#2e7bff,#1346c8);display:flex;align-items:center;justify-content:center;
+ box-shadow:0 22px 64px rgba(31,107,255,.55)}
+.mic-btn svg{width:122px;height:122px}
+.cta{text-align:center;margin-top:42px;font-size:42px;font-weight:700;color:#eaf1ff}
+.sub{text-align:center;margin-top:14px;font-size:30px;color:#8ea3cc}
+</style></head><body>
+<div class="wrap">
+ <div class="top">
+  <svg viewBox="0 0 100 100"><rect x="40" y="16" width="20" height="46" rx="10" fill="#bcd0ff"/><path d="M27 50 a23 23 0 0 0 46 0" fill="none" stroke="#bcd0ff" stroke-width="6.5" stroke-linecap="round"/><line x1="50" y1="73" x2="50" y2="86" stroke="#bcd0ff" stroke-width="6.5" stroke-linecap="round"/><line x1="35" y1="86" x2="65" y2="86" stroke="#bcd0ff" stroke-width="6.5" stroke-linecap="round"/></svg>
+  CoDriver AI
+ </div>
+ <div class="head">Ask anything.<br><span>Eyes on the road.</span></div>
+ <div class="conv">
+  <div class="bubble you">What&rsquo;s the weather on the way to Boston?</div>
+  <div class="bubble ai"><b>CoDriver:</b> Clear and about 58&deg;F toward Boston, light wind, no rain expected on your route.</div>
+  <div class="bubble you">Great — add a reminder to grab coffee.</div>
+ </div>
+ <div class="wave" id="wave"></div>
+ <div class="spacer"></div>
+ <div class="mic-btn">
+  <svg viewBox="0 0 100 100"><rect x="40" y="16" width="20" height="46" rx="10" fill="#fff"/><path d="M27 50 a23 23 0 0 0 46 0" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><line x1="50" y1="73" x2="50" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><line x1="35" y1="86" x2="65" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/></svg>
+ </div>
+ <div class="cta">Tap and talk</div>
+ <div class="sub">Reads the answer back &middot; ask follow-ups</div>
+ <script>
+  var w=document.getElementById('wave');var hs=[30,54,82,48,70,92,60,38,68,86,50,28,58,76,42,64,36];
+  hs.forEach(function(h){var i=document.createElement('i');i.style.height=h+'px';w.appendChild(i);});
+ </script>
+</div></body></html>

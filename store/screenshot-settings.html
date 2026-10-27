@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;padding:0;width:1080px;height:1920px;overflow:hidden;background:#fff;color:#1a2235;
+ font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif}
+*{box-sizing:border-box}
+.status{height:46px;background:#0A3AB0;color:#cfe0ff;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:24px}
+.appbar{height:124px;background:linear-gradient(90deg,#0A3AB0,#1466FF);color:#fff;display:flex;align-items:center;gap:22px;padding:0 44px;font-size:48px;font-weight:700}
+.appbar svg{width:50px;height:50px}
+.body{padding:34px 46px}
+.lbl{font-size:30px;font-weight:700;color:#36415c;margin:26px 0 10px}
+.lbl:first-child{margin-top:4px}
+.field{min-height:88px;border:2px solid #d6dcea;border-radius:16px;display:flex;align-items:center;padding:0 26px;font-size:34px;background:#f7f9ff}
+.field.drop{justify-content:space-between}
+.field.sys{min-height:120px;align-items:flex-start;padding:22px 26px;font-size:30px;line-height:1.4;color:#45526f}
+.muted{color:#9aa3b8}
+.save{margin-top:42px;height:106px;border-radius:18px;background:#1466FF;color:#fff;font-size:40px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.hr{height:2px;background:#e6eaf5;margin:44px 0}
+.test{height:106px;border-radius:18px;border:3px solid #1466FF;color:#1466FF;font-size:38px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.result{margin-top:30px;background:#eef3ff;border-radius:18px;padding:28px;font-size:32px;color:#24324f;line-height:1.45}
+.result b{color:#0A3AB0}
+</style></head><body>
+<div class="status"><span>9:41</span><span>5G&nbsp;&nbsp;100%</span></div>
+<div class="appbar">
+ <svg viewBox="0 0 100 100"><rect x="40" y="16" width="20" height="46" rx="10" fill="#fff"/><path d="M27 50 a23 23 0 0 0 46 0" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><line x1="50" y1="73" x2="50" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><line x1="35" y1="86" x2="65" y2="86" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/></svg>
+ CoDriver AI
+</div>
+<div class="body">
+ <div class="lbl">OpenAI API key</div>
+ <div class="field">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
+ <div class="lbl">Chat model</div>
+ <div class="field drop">GPT-6 Luna — OpenAI <span class="muted">&#9662;</span></div>
+ <div class="lbl">Anthropic API key <span class="muted">(for Claude models)</span></div>
+ <div class="field">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
+ <div class="lbl">System prompt</div>
+ <div class="field sys">You are a hands-free voice assistant for someone who is driving. Keep answers short and easy to follow by ear…</div>
+ <div class="save">Save</div>
+ <div class="hr"></div>
+ <div class="lbl">Test message</div>
+ <div class="field">What&rsquo;s a good podcast for a long drive?</div>
+ <div class="test">Send test &amp; speak</div>
+ <div class="result"><b>CoDriver AI:</b> Try &ldquo;Cautionary Tales&rdquo; — short, gripping true stories, perfect for a commute. Want something lighter instead?</div>
+</div>
+</body></html>
