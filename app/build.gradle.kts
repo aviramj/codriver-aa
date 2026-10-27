@@ -32,8 +32,9 @@ android {
         applicationId = "com.aviramj.codriver"
         minSdk = 29          // Android 10; Android Auto dev mode lives under app settings here
         targetSdk = 36       // Google Play requires API 36 for new uploads (since Aug 31, 2026)
-        versionCode = 3
-        versionName = "1.2"
+        // CI sets VERSION_CODE (auto-incrementing); local builds use the fallback.
+        versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 3
+        versionName = System.getenv("VERSION_NAME") ?: "1.2"
 
         buildConfigField("String", "DEFAULT_OPENAI_API_KEY", "\"${secret("OPENAI_API_KEY")}\"")
         buildConfigField("String", "DEFAULT_ANTHROPIC_API_KEY", "\"${secret("ANTHROPIC_API_KEY")}\"")
