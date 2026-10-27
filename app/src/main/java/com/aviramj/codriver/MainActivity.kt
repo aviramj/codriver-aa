@@ -1,6 +1,7 @@
 package com.aviramj.codriver
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -22,15 +23,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Phone companion. Holds the configuration (entered here because you can't type
- * while driving) and offers a "send test & speak" button so you can confirm the
- * key, model, and voice all work before getting in the car.
+ * Phone companion. Holds the configuration and launches Driving Mode (the
+ * full-screen, hands-light assistant). "Send test & speak" confirms the key,
+ * model, and voice work without driving.
  */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    /** Labels for the model dropdown: the presets, plus a Custom entry. */
     private val modelLabels: List<String> = Models.PRESETS.map { it.label } + "Custom (type a model id)…"
     private val customIndex: Int get() = Models.PRESETS.size
 
@@ -42,6 +42,10 @@ class MainActivity : AppCompatActivity() {
         setupModelSpinner()
 
         with(binding) {
+            drivingMode.setOnClickListener {
+                startActivity(Intent(this@MainActivity, DrivingModeActivity::class.java))
+            }
+
             baseUrl.setText(Settings.baseUrl(this@MainActivity))
             apiKey.setText(Settings.apiKey(this@MainActivity))
             anthropicKey.setText(Settings.anthropicApiKey(this@MainActivity))
@@ -58,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             test.setOnClickListener { runTest() }
         }
 
-        // Reflect the saved model in the dropdown (or select Custom for a typed id).
         val saved = Settings.chatModel(this)
         val presetIdx = Models.indexOfId(saved)
         if (presetIdx >= 0) {
@@ -83,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         binding.modelSpinner.adapter = adapter
         binding.modelSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // Show the free-text field only for Custom; never clobber its text here.
                 binding.customModel.visibility = if (position == customIndex) View.VISIBLE else View.GONE
             }
 
@@ -91,7 +93,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** The model id currently chosen: a preset's id, or the custom field's text. */
     private fun selectedModel(): String {
         val pos = binding.modelSpinner.selectedItemPosition
         return if (pos in Models.PRESETS.indices) {

@@ -25,6 +25,16 @@
             android:text="@string/intro"
             android:paddingBottom="16dp" />
 
+        <Button
+            android:id="@+id/drivingMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingVertical="14dp"
+            android:text="▶  Start Driving Mode"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView style="@style/FieldLabel" android:text="@string/label_base_url" />
         <EditText
             android:id="@+id/baseUrl"

@@ -11,13 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoDriver">
 
-        <!-- Car API level 5 is the minimum that exposes the car microphone
-             (CarAudioRecord), which this app needs for voice input. -->
+        <!-- Car API level 5 is the minimum that exposes the car microphone. -->
         <meta-data
             android:name="androidx.car.app.minCarApiLevel"
             android:value="5" />
 
-        <!-- Phone companion: enter API key, pick model, customize the prompt. -->
+        <!-- Phone companion: settings + "test & speak" + Driving Mode. -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,8 +26,14 @@
             </intent-filter>
         </activity>
 
-        <!-- Android Auto entry point. The host discovers the app through this
-             service; the category decides which app-quality rules apply. -->
+        <!-- Full-screen hands-light assistant for a phone mount. -->
+        <activity
+            android:name=".DrivingModeActivity"
+            android:exported="false"
+            android:label="Driving Mode"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+
+        <!-- Android Auto entry point. -->
         <service
             android:name=".car.AiCarAppService"
             android:exported="true">
