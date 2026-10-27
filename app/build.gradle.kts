@@ -29,7 +29,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.aviramj.codriver"
+        applicationId = "io.github.aviramj.codriveraa"
         minSdk = 29          // Android 10; Android Auto dev mode lives under app settings here
         targetSdk = 36       // Google Play requires API 36 for new uploads (since Aug 31, 2026)
         versionCode = 1
