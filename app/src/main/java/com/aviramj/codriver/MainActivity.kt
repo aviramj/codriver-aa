@@ -159,24 +159,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Posts the co:driver greeting so the conversation shows up in Android Auto's
-     * Messages. Android Auto only surfaces messages that arrive while connected,
-     * so tap this once the car is connected. Needs notification permission on 13+.
+     * Enables the in-car assistant: posts a greeting now, and (with Bluetooth
+     * permission) registers so co:driver greets you automatically whenever the
+     * car's Bluetooth connects. Requests notification + Bluetooth permission on
+     * first use; notifications let the greeting show and Bluetooth enables the
+     * automatic greeting.
      */
     private fun setUpCarChat() {
         persist()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQ_NOTIF)
+        val needed = buildList {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) add(Manifest.permission.POST_NOTIFICATIONS)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.BLUETOOTH_CONNECT)
+                != PackageManager.PERMISSION_GRANTED
+            ) add(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+        if (needed.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, needed.toTypedArray(), REQ_CAR)
             return
         }
+        startCarChat()
+    }
+
+    private fun startCarChat() {
         CarMessaging.start(this)
         Toast.makeText(
             this,
-            "Posted to Android Auto - open co:driver under Messages in the car and reply by voice. " +
-                "If it doesn't appear, tap this again once the car is connected.",
+            "Set up. co:driver will greet you automatically when your car's Bluetooth connects - " +
+                "open co:driver under Messages in the car and reply by voice. (Posted one now, too.)",
             Toast.LENGTH_LONG,
         ).show()
     }
@@ -187,13 +200,13 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQ_NOTIF && grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
-            setUpCarChat()
-        }
+        // Proceed regardless of which were granted: notifications let the greeting
+        // show, Bluetooth enables the auto-greet. Missing ones can be granted later.
+        if (requestCode == REQ_CAR) startCarChat()
     }
 
     private companion object {
         const val REQ_MIC = 1
-        const val REQ_NOTIF = 2
+        const val REQ_CAR = 2
     }
 }

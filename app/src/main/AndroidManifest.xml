@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Android 13+ requires runtime permission to post the Android Auto chat notification. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Detect the car's Bluetooth to auto-post the greeting when you get in. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
         android:allowBackup="true"
@@ -42,5 +45,16 @@
         <receiver
             android:name=".car.MessageReplyReceiver"
             android:exported="false" />
+
+        <!-- Fires when the car's Bluetooth connects, to auto-post the greeting.
+             ACL_CONNECTED is exempt from background-broadcast limits, so this
+             receiver runs even when the app isn't open (no foreground service). -->
+        <receiver
+            android:name=".car.CarBluetoothReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

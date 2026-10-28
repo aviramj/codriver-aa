@@ -38,8 +38,10 @@ object CarMessaging {
 
     private const val PREFS = "codriver_car_chat"
     private const val KEY_HISTORY = "history"
+    private const val KEY_LAST_AUTO_GREET = "last_auto_greet"
     private const val MAX_MESSAGES = 20
     private const val THREAD_SHOWN = 10
+    private const val AUTO_GREET_DEBOUNCE_MS = 5 * 60 * 1000L
 
     private val assistant: Person = Person.Builder().setName("co:driver").setKey("codriver-ai").build()
     private val me: Person = Person.Builder().setName("You").setKey("me").build()
@@ -98,6 +100,19 @@ object CarMessaging {
     fun start(c: Context) {
         reset(c)
         postAssistantMessage(c, "Hi, I'm co:driver. Reply to this message to ask me anything while you drive.")
+    }
+
+    /**
+     * Auto-greet when the car connects (called from [CarBluetoothReceiver]).
+     * Debounced so a flurry of Bluetooth (re)connects at the start of a drive
+     * posts the greeting only once.
+     */
+    fun startFromCarConnect(c: Context) {
+        val p = prefs(c)
+        val now = System.currentTimeMillis()
+        if (now - p.getLong(KEY_LAST_AUTO_GREET, 0L) < AUTO_GREET_DEBOUNCE_MS) return
+        p.edit().putLong(KEY_LAST_AUTO_GREET, now).apply()
+        start(c)
     }
 
     // ---- notification ----
