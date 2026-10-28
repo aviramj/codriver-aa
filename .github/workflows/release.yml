@@ -38,8 +38,20 @@ jobs:
       - name: Install SDK packages
         run: yes | sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Decode upload keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > upload-keystore.jks
+      - name: Decode & verify upload keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          # Strip any stray whitespace a copy/paste may have added, then decode.
+          printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 -d > upload-keystore.jks
+          echo "Decoded keystore: $(wc -c < upload-keystore.jks) bytes"
+          # Fail fast with a clear message if the secret didn't rebuild a valid keystore.
+          if ! keytool -list -keystore upload-keystore.jks -storepass "$KEYSTORE_PASSWORD" >/dev/null 2>&1; then
+            echo "::error::upload-keystore.jks is invalid. KEYSTORE_BASE64 is corrupt/truncated or KEYSTORE_PASSWORD is wrong. Recreate KEYSTORE_BASE64 from 'base64 -w0 upload-keystore.jks' (one line, no spaces)."
+            exit 1
+          fi
+          echo "Upload keystore verified OK"
 
       - name: Write keystore.properties
         run: |
