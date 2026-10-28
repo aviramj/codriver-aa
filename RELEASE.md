@@ -9,14 +9,20 @@ is just a tag push — no manual AAB upload.
 Needs your Google credentials, so only you can do it.
 
 ### 1. Create a Play service account (lets CI upload on your behalf)
-1. Google Play Console → **Setup ▸ API access**.
-2. Follow **Create new service account** → it sends you to Google Cloud.
-3. In Google Cloud: create the service account, then create a **JSON key** and download it.
-4. Back in Play Console ▸ **Users & permissions ▸ Invite new users**, invite the
-   service account's email, and grant it (app `com.aviramj.codriver`):
-   **Release to testing tracks** (and **View app information**). Save.
+Google simplified this — you no longer need to link a Google Cloud project.
+1. **Google Cloud Console** (<https://console.cloud.google.com>) → pick or create
+   any project → **IAM & Admin ▸ Service accounts ▸ Create service account** →
+   name it → **Done** (no roles needed).
+2. Open the new service account → **Keys ▸ Add key ▸ Create new key ▸ JSON** →
+   download it. This file is the `PLAY_SERVICE_ACCOUNT_JSON` secret.
+3. **Play Console ▸ Users and permissions ▸ Invite new users** → paste the service
+   account's email → add app `com.aviramj.codriver` and grant **Release to testing
+   tracks** (+ **View app information**) → **Invite user**.
 
-   Docs: <https://developers.google.com/android-publisher/getting_started>
+The optional "API access" page (lists linked service accounts) lives at
+`https://play.google.com/console/developers/<Developer ID>/api-access`.
+
+Docs: <https://developers.google.com/android-publisher/getting_started>
 
 ### 2. Base64 your upload keystore (for CI signing)
 ```bash
