@@ -29,9 +29,14 @@ jobs:
           java-version: "17"
 
       - uses: android-actions/setup-android@v3
+        with:
+          # Skip the action's default `tools platform-tools` install: the
+          # obsolete `tools` package was removed from the SDK repo, so
+          # `sdkmanager tools` fails the job. We install what we need below.
+          packages: ""
 
       - name: Install SDK packages
-        run: yes | sdkmanager "platforms;android-36" "build-tools;36.0.0" >/dev/null || true
+        run: yes | sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
       - name: Decode upload keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > upload-keystore.jks
