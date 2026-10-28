@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Android 13+ requires runtime permission to post the Android Auto chat notification. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Foreground service that greets the driver the moment Android Auto connects. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:allowBackup="true"
@@ -57,5 +60,16 @@
         <receiver
             android:name=".car.MessageReplyReceiver"
             android:exported="false" />
+
+        <!-- Watches for Android Auto connecting and posts a greeting so the
+             conversation can be started hands-free during the drive. -->
+        <service
+            android:name=".car.CarChatService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Detects when the phone connects to Android Auto and posts the co:driver assistant greeting so the hands-free conversation can begin." />
+        </service>
     </application>
 </manifest>
