@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Declares to Android Auto that this app provides messaging via notifications,
+     so the host surfaces the co:driver conversation, reads it aloud, and offers
+     a voice reply. -->
+<automotiveApp>
+    <uses name="notification" />
+</automotiveApp>
