@@ -18,7 +18,7 @@ import com.aviramj.codriver.ai.ChatMessage
 import com.aviramj.codriver.ai.Models
 import com.aviramj.codriver.ai.OpenAiClient
 import com.aviramj.codriver.audio.Speaker
-import com.aviramj.codriver.car.CarChatService
+import com.aviramj.codriver.car.CarMessaging
 import com.aviramj.codriver.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -159,9 +159,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Starts the watcher service that posts a co:driver greeting the moment the
-     * phone connects to Android Auto (its messaging surface only shows messages
-     * that arrive while connected). Needs notification permission on Android 13+.
+     * Posts the co:driver greeting so the conversation shows up in Android Auto's
+     * Messages. Android Auto only surfaces messages that arrive while connected,
+     * so tap this once the car is connected. Needs notification permission on 13+.
      */
     private fun setUpCarChat() {
         persist()
@@ -172,10 +172,11 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQ_NOTIF)
             return
         }
-        CarChatService.start(this)
+        CarMessaging.start(this)
         Toast.makeText(
             this,
-            "co:driver is ready for Android Auto. Connect your car, open co:driver under Messages, then reply by voice.",
+            "Posted to Android Auto - open co:driver under Messages in the car and reply by voice. " +
+                "If it doesn't appear, tap this again once the car is connected.",
             Toast.LENGTH_LONG,
         ).show()
     }

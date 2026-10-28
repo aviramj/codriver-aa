@@ -5,9 +5,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Android 13+ requires runtime permission to post the Android Auto chat notification. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Foreground service that greets the driver the moment Android Auto connects. -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:allowBackup="true"
@@ -16,13 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoDriver">
 
-        <!-- Car API level 5 is the minimum that exposes the car microphone. -->
-        <meta-data
-            android:name="androidx.car.app.minCarApiLevel"
-            android:value="5" />
-
-        <!-- Android Auto messaging support: the assistant appears as a
-             conversation whose messages the car reads aloud, with a voice reply. -->
+        <!-- Android Auto messaging: the assistant appears as a conversation whose
+             messages the car reads aloud, with a voice reply. This is the whole
+             Android Auto integration, and it is passive - the app runs no code
+             while the car connects, so it never interferes with Android Auto startup. -->
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -44,32 +38,9 @@
             android:label="Driving Mode"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
-        <!-- Android Auto templated (POI) entry point. Dormant until Google
-             approves a car-app category; the messaging path above is what
-             actually surfaces the assistant in the car today. -->
-        <service
-            android:name=".car.AiCarAppService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="androidx.car.app.CarAppService" />
-                <category android:name="androidx.car.app.category.POI" />
-            </intent-filter>
-        </service>
-
         <!-- Receives spoken replies from the Android Auto messaging UI. -->
         <receiver
             android:name=".car.MessageReplyReceiver"
             android:exported="false" />
-
-        <!-- Watches for Android Auto connecting and posts a greeting so the
-             conversation can be started hands-free during the drive. -->
-        <service
-            android:name=".car.CarChatService"
-            android:exported="false"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Detects when the phone connects to Android Auto and posts the co:driver assistant greeting so the hands-free conversation can begin." />
-        </service>
     </application>
 </manifest>
