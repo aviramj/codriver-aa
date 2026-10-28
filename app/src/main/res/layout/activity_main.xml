@@ -35,6 +35,15 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/carChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="14dp"
+            android:text="🚗  Set up Android Auto chat"
+            android:textSize="16sp" />
+
         <TextView style="@style/FieldLabel" android:text="@string/label_base_url" />
         <EditText
             android:id="@+id/baseUrl"

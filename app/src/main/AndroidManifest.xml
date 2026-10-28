@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Android 13+ requires runtime permission to post the Android Auto chat notification. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,12 @@
         <meta-data
             android:name="androidx.car.app.minCarApiLevel"
             android:value="5" />
+
+        <!-- Android Auto messaging support: the assistant appears as a
+             conversation whose messages the car reads aloud, with a voice reply. -->
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
 
         <!-- Phone companion: settings + "test & speak" + Driving Mode. -->
         <activity
@@ -33,7 +41,9 @@
             android:label="Driving Mode"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
-        <!-- Android Auto entry point. -->
+        <!-- Android Auto templated (POI) entry point. Dormant until Google
+             approves a car-app category; the messaging path above is what
+             actually surfaces the assistant in the car today. -->
         <service
             android:name=".car.AiCarAppService"
             android:exported="true">
@@ -42,5 +52,10 @@
                 <category android:name="androidx.car.app.category.POI" />
             </intent-filter>
         </service>
+
+        <!-- Receives spoken replies from the Android Auto messaging UI. -->
+        <receiver
+            android:name=".car.MessageReplyReceiver"
+            android:exported="false" />
     </application>
 </manifest>

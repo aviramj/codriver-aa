@@ -3,6 +3,7 @@ package com.aviramj.codriver
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -17,6 +18,7 @@ import com.aviramj.codriver.ai.ChatMessage
 import com.aviramj.codriver.ai.Models
 import com.aviramj.codriver.ai.OpenAiClient
 import com.aviramj.codriver.audio.Speaker
+import com.aviramj.codriver.car.CarMessaging
 import com.aviramj.codriver.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             drivingMode.setOnClickListener {
                 startActivity(Intent(this@MainActivity, DrivingModeActivity::class.java))
             }
+            carChat.setOnClickListener { setUpCarChat() }
 
             baseUrl.setText(Settings.baseUrl(this@MainActivity))
             apiKey.setText(Settings.apiKey(this@MainActivity))
@@ -155,7 +158,41 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Seeds the Android Auto messaging conversation (a greeting from co:driver)
+     * so it shows up in the car's Messages list. Needs notification permission on
+     * Android 13+.
+     */
+    private fun setUpCarChat() {
+        persist()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQ_NOTIF)
+            return
+        }
+        CarMessaging.start(this)
+        Toast.makeText(
+            this,
+            "Added to Android Auto. Connect your car, open co:driver under Messages, and reply by voice.",
+            Toast.LENGTH_LONG,
+        ).show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQ_NOTIF && grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+            setUpCarChat()
+        }
+    }
+
     private companion object {
         const val REQ_MIC = 1
+        const val REQ_NOTIF = 2
     }
 }
