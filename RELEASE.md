@@ -22,6 +22,10 @@ Google simplified this — you no longer need to link a Google Cloud project.
 The optional "API access" page (lists linked service accounts) lives at
 `https://play.google.com/console/developers/<Developer ID>/api-access`.
 
+Also enable the **Google Play Android Developer API** once for the service
+account's Google Cloud project (Cloud Console ▸ APIs & Services ▸ Library), or
+uploads fail with `SERVICE_DISABLED`.
+
 Docs: <https://developers.google.com/android-publisher/getting_started>
 
 ### 2. Base64 your upload keystore (for CI signing)
@@ -52,7 +56,8 @@ Either:
 CI then builds the signed AAB and uploads it to **Internal testing**. On your
 phone, open the Play listing and tap **Update**.
 
-- **versionCode** auto-increments (GitHub run number + 1000), so you never hit a
+- **versionCode** auto-increments (GitHub run number + 1000, computed in a shell
+  step since Actions expressions can't do arithmetic), so you never hit a
   "version already used" error. If you ever upload manually again, use a code
   above the last CI one.
 - **versionName** comes from the tag (`v1.3` → `1.3`) or the manual input.
@@ -121,10 +126,14 @@ jobs:
           fi
           [ -z "$NAME" ] && NAME="1.2"
           echo "name=$NAME" >> "$GITHUB_OUTPUT"
+      - name: Compute version code
+        id: vc
+        run: echo "code=$((GITHUB_RUN_NUMBER + 1000))" >> "$GITHUB_OUTPUT"
+
       - name: Build signed AAB
         run: ./gradlew bundleRelease --no-daemon
         env:
-          VERSION_CODE: ${{ github.run_number + 1000 }}
+          VERSION_CODE: ${{ steps.vc.outputs.code }}
           VERSION_NAME: ${{ steps.ver.outputs.name }}
       - name: Upload to Play (internal testing)
         uses: r0adkll/upload-google-play@v1
